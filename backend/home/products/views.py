@@ -13,14 +13,34 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
 
 product_list_create_view = ProductListCreateAPIView.as_view()
 
-class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+class ProductDetailAPIView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     #lookup_field = 'title'  # change lookup to title
 
-
 product_detail_view = ProductDetailAPIView.as_view() 
 
+class ProductUpdateAPIView(generics.UpdateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = 'pk'
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        if not instance.content:
+            instance.content = instance.title
+
+product_update_view = ProductUpdateAPIView.as_view() 
+
+class ProductDestroyAPIView(generics.DestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = 'pk'
+
+    def perform_destroy(self, instance):
+        super().perform_destroy(instance)
+
+product_Destroy_view = ProductDestroyAPIView.as_view() 
 
 # this for get the get the list of items only
 class ProductListAPIView(generics.ListAPIView):
