@@ -5,7 +5,7 @@ try:
     product_id = int(product_id)
 except:
     product_id = None
-    print(f'{product_id} This ID is missing')
+    print(f'{product_id} This element is missing')
 
 if product_id:
     endpoint = f"http://localhost:8000/api/products/{product_id}/delete/" 
