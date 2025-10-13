@@ -15,8 +15,8 @@ class ProductListCreateAPIView(handlingeditorPermissonMixin, generics.ListCreate
     #permission_classes =[permissions.IsAdminUser,Ishandlingeditorpermission]   Reason for comment this line I used mixins.py to handel the permission (handlingeditorPermissonMixin) 
 
     def perform_create(self, serializer):
-        email = serializer.validated_data.pop('email')
-        print(email)
+        # email = serializer.validated_data.pop('email')      RFC: ITs commented after the learning of Model serialzer
+        # print(email)
         title = serializer.validated_data.get('title')
         content = serializer.validated_data.get('content') or title
         # instance = serializer.save()

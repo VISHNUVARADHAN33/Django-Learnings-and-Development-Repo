@@ -7,10 +7,10 @@ class ProductSerializer(serializers.ModelSerializer):
     #url = serializers.SerializerMethodField(read_only=True)
     edit_url = serializers.SerializerMethodField(read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='product-detail', lookup_field='pk')
-    email= serializers.EmailField(write_only=True)
+    #email= serializers.EmailField(write_only=True)                                                   --> RFC comment after model serializer learning
     class Meta:
         model = Product
-        fields = ['email','url','edit_url','id', 'title', 'price', 'content', 'Discounted_price', 'discount']
+        fields = ['url','edit_url','id', 'title', 'price', 'content', 'Discounted_price', 'discount']  #'email', "" " " "  "        "         "
     # Reason for the comment: This learned on model serializer
     # def create(self, validated_data):                      
     #     #email = validated_data.pop('email')  -> Reason for comment this handel on view.py
