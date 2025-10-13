@@ -1,18 +1,18 @@
 from rest_framework import serializers
 from products.models import Product
 from rest_framework.reverse import reverse
-from .validators import validate_title_no_hello, unique_product_title
+from .validators import  unique_product_title #validate_title_no_hello
 class ProductSerializer(serializers.ModelSerializer):
     discount = serializers.SerializerMethodField(read_only=True)
     #url = serializers.SerializerMethodField(read_only=True)
     edit_url = serializers.SerializerMethodField(read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='product-detail', lookup_field='pk')
-    title = serializers.CharField(validators =[validate_title_no_hello,unique_product_title])
+    title = serializers.CharField(validators =[unique_product_title]) #validate_title_no_hello
     #name = serializers.CharField(source="title", read_only=True)                                                                                               -> learned for validation
     #email= serializers.EmailField(write_only=True)                                                   --> RFC comment after model serializer learning
     class Meta:
         model = Product
-        fields = ['url','edit_url','id', 'title', 'price', 'content', 'Discounted_price', 'discount']  #'email', "" " " "  "        "         "                      'name',
+        fields = ['url','edit_url','id', 'title', 'price', 'content', 'Discounted_price', 'discount']  #'email', "" " " "  "        "         "                      'name',       'user', -> this comment while learning the request user 
     
     # def validate_title(self, value):
     #     qs = Product.objects.filter(title__iexact=value)

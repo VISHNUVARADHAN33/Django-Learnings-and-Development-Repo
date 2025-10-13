@@ -13,4 +13,4 @@ from rest_framework.validators import UniqueValidator
 #     if "iphone" in value.lower():
 #         raise serializers.ValidationError(f"No more iphones are allowed")
 #     return value
-unique_product_title = UniqueValidator(queryset=Product.objects.all())
+unique_product_title = UniqueValidator(queryset=Product.objects.all(), lookup='iexact')
