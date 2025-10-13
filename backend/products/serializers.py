@@ -7,9 +7,20 @@ class ProductSerializer(serializers.ModelSerializer):
     #url = serializers.SerializerMethodField(read_only=True)
     edit_url = serializers.SerializerMethodField(read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='product-detail', lookup_field='pk')
+    email= serializers.EmailField(write_only=True)
     class Meta:
         model = Product
-        fields = ['url','edit_url','id', 'title', 'price', 'content', 'Discounted_price', 'discount']
+        fields = ['email','url','edit_url','id', 'title', 'price', 'content', 'Discounted_price', 'discount']
+    # Reason for the comment: This learned on model serializer
+    # def create(self, validated_data):                      
+    #     #email = validated_data.pop('email')  -> Reason for comment this handel on view.py
+    #     obj = super(). create(validated_data)
+    #     #print(email, obj)                    ->    "     "      "    "      "
+    #     return obj
+    
+    # def update(self, instance, validated_data):
+    #     email = validated_data.pop('email')
+    #     return super().update(instance, validated_data)
 
     def get_discount(self, obj):
         if not hasattr(obj, 'id'):

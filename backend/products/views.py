@@ -14,10 +14,15 @@ class ProductListCreateAPIView(handlingeditorPermissonMixin, generics.ListCreate
     #authentication_classes = [authentication.SessionAuthentication, TokenAuthentication] this changes have done on settings.py
     #permission_classes =[permissions.IsAdminUser,Ishandlingeditorpermission]   Reason for comment this line I used mixins.py to handel the permission (handlingeditorPermissonMixin) 
 
-    def perform_update(self, serializer):
-        instance = serializer.save()
-        if not instance.content:
-            instance.content = instance.title
+    def perform_create(self, serializer):
+        email = serializer.validated_data.pop('email')
+        print(email)
+        title = serializer.validated_data.get('title')
+        content = serializer.validated_data.get('content') or title
+        # instance = serializer.save()
+        # if not instance.content:
+        #     instance.content = instance.title
+        serializer.save(content=content)
 
 
 product_list_create_view = ProductListCreateAPIView.as_view()
