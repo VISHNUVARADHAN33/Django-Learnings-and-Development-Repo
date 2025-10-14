@@ -18,9 +18,9 @@ class ProductInlineSerializer(serializers.Serializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    related_products = ProductInlineSerializer(source='user.product_set.all', read_only=True, many=True)
-    my_user_data = serializers.SerializerMethodField(read_only = True)
-    discount = serializers.SerializerMethodField(read_only=True)
+    #related_products = ProductInlineSerializer(source='user.product_set.all', read_only=True, many=True)
+    #my_user_data = serializers.SerializerMethodField(read_only = True)
+    #discount = serializers.SerializerMethodField(read_only=True)
     owner=UserPublicSerializer(source= 'user', read_only=True)
     #url = serializers.SerializerMethodField(read_only=True)
     edit_url = serializers.SerializerMethodField(read_only=True)
@@ -30,7 +30,7 @@ class ProductSerializer(serializers.ModelSerializer):
     #email= serializers.EmailField(write_only=True)                                                   --> RFC comment after model serializer learning
     class Meta:
         model = Product
-        fields = ['related_products','owner','my_user_data','url','edit_url','id', 'title', 'price', 'content', 'Discounted_price', 'discount']  #'email', "" " " "  "        "         "                      '       'user', -> this comment while learning the request user 
+        fields = ['owner','url','edit_url','id', 'title', 'price', 'content', 'Discounted_price', 'public']  #'email', 'related_products',"" 'my_user_data'," " "  "  , 'discount'      "         "                      '       'user', -> this comment while learning the request user 
     
 
     def get_my_user_data(self, obj):
