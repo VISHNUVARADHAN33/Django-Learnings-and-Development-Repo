@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 
     #third party api serives
     'algoliasearch_django',
-    
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -58,9 +58,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+CORS_URLS_REGEX = r'^/api/.*'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8111",
 ]
 
 ROOT_URLCONF = 'home.urls'
+
 
 TEMPLATES = [
     {
