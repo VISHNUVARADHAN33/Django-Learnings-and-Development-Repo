@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from products.models import Product
 from rest_framework.reverse import reverse
-from .validators import  unique_product_title #validate_title_no_hello
+from .validators import  unique_product_title                                                                            #validate_title_no_hello
 from api.serializers import UserPublicSerializer
 
 
@@ -21,12 +21,12 @@ class ProductSerializer(serializers.ModelSerializer):
     owner=UserPublicSerializer(source= 'user', read_only=True)
     edit_url = serializers.SerializerMethodField(read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='product-detail', lookup_field='pk')
-    title = serializers.CharField(validators =[unique_product_title]) #validate_title_no_hello
+    title = serializers.CharField(validators =[unique_product_title])                                                        #validate_title_no_hello
     body = serializers.CharField(source='content')
 
     class Meta:
         model = Product
-        fields = ['owner','id', 'title', 'price', 'body', 'Discounted_price', 'path', 'public', 'endpoint','url','edit_url']  #'email', 'related_products',"" 'my_user_data'," " "  "  , 'discount'      "         "                      '       'user', -> this comment while learning the request user 
+        fields = ['owner','id', 'title', 'price', 'body', 'Discounted_price', 'path', 'public', 'endpoint','url','edit_url']  #  this might not need for the next stage of development    'email', 'related_products','my_user_data', 'discount','user', -> this comment while learning the request user 
     
 
     def get_my_user_data(self, obj):
