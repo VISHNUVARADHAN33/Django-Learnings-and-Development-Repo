@@ -22,5 +22,7 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('api/products/', include('products.urls')),
     path('api/version-2/', include('home.routers')),
-    path('api/search/', include('search.urls'))
+    path('api/search/', include('search.urls')),
+    path('api/articles/', include('articles.urls')),
+
 ]

@@ -26,8 +26,6 @@ class ProductManager(models.Manager):
     def search(self, query, user=None):
         return self.get_queryset().is_public().search(query, user=user)
     
-
-
 class Product(models.Model):
 
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
@@ -37,6 +35,22 @@ class Product(models.Model):
     public = models.BooleanField(default=True)
     objects = ProductManager()
 
+
+    def get_absolute_ulrs(self):
+        return f"/api/products/{self.pk}/"     #hard coded
+
+    @property
+    def endpoint(self):
+        return self.get_absolute_ulrs()
+
+    @property
+    def path(self):
+        return f"products/{self.id}"
+
+    @property
+    def body(self):
+        return self.content
+        
     def is_public(self) -> bool:
         return self.public 
 
