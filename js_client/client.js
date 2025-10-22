@@ -1,8 +1,14 @@
 const loginForm = document.getElementById('login-form');
+const searchForm = document.getElementById('search-form');
+
 const baseEndpoint = 'http://localhost:8000/api/'
 const contentContainer = document.getElementById('content-container');
 if (loginForm){
     loginForm.addEventListener('submit', handleLogin)
+}
+
+if (searchForm){
+    searchForm.addEventListener('submit', handleSearch)
 }
 
 function handleLogin(event){
@@ -21,6 +27,27 @@ function handleLogin(event){
     }
 fetch(loginEndpoint, options)      
 }
+
+function handleSearch(event){
+    event.preventDefault();
+    let FormData = new FormData(searchForm)
+    let Data = Object.fromEntries(FormData)
+    let searchParams = new URLSearchParams(Data)
+
+    const Endpoint = '${baseEndpoint}/search/?${searchParams}'
+        const authToken = localStorage.getItem('access')
+        if (authToken){
+            options.headers['Authorization'] = 'Bearer ' + authToken  
+        }
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }
+fetch(loginEndpoint, options)      
+}
+
 
 function handleAuthData(authData){ 
     localStorage.setItem('access', authData.access)   
